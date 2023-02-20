@@ -13,6 +13,9 @@ class Vec2:
     
     def distance(v0: "Vec2", v1: "Vec2") -> float:
         return math.sqrt((v1.x - v0.x)**2 + (v1.y - v0.y)**2)
+
+    def unit() -> "Vec2":
+        return self/self.length()
     
     def angle(v0: "Vec2", v1: "Vec2") -> float:
         length = Vec2.distance(v0, v1)
