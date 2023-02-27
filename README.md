@@ -1,3 +1,5 @@
+*(README copied from [itch.io](https://osipog.itch.io/corny))*
+
 # Corny
 
 Corny is a simple racing game where you can race to get the best  times. With drifting around the corners or taking clever shortcuts  improve your time to unlock new levels.
