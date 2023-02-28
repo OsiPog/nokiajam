@@ -420,7 +420,7 @@ async def main():
         level_id = level_select_menu.selected_button
 
         player.paused = True
-        score = player.time
+        score = int(player.time/1000)
 
         new_record = (score <= SAVE[level_id]["best"] or SAVE[level_id]["best"] == -1)
 
@@ -784,7 +784,7 @@ async def main():
             menu_finished_record.text = "New Record!"
         else:
             menu_finished_record.text = ""
-    Timer(new_record_blink, 1*FPS)
+    Timer(new_record_blink, 60)
 
     menu_finished_curr_rec = MenuButton(
                         menu=menu_finished, 
@@ -895,6 +895,20 @@ async def main():
 
     player = Player(level_engine, Vec2(64,64), Vec2(16,16), player_sprite)
     player.paused = True
+    # adjust values based on FPS
+    player.max_v *= 60/FPS
+    player.v_decrease_frame *= 60/FPS 
+    player.v_max_decrease *= 60/FPS 
+    
+    player.acceleration *= 60/FPS 
+    player.back_accel *= 60/FPS
+
+    player.steer_sensi *= 60/FPS
+    player.drift_sensi *= 60/FPS
+    player.drift_increase *= 60/FPS
+    player.drift_max *= 60/FPS
+
+    player.camera_adjust_frame *= 60/FPS
 
     #finish_level()
 

@@ -159,6 +159,9 @@ class Player(SpriteEntity):
         self.velocity = Vec2()
         self.max_v = 3
 
+        self.v_decrease_frame = 0.1
+        self.v_max_decrease = 0.1
+
         self.rotation = 0
 
         self.acceleration = 0.15
@@ -170,6 +173,8 @@ class Player(SpriteEntity):
         self.drift_increase = 0.4
         self.drift_max = 0.06
         self.drift_since_frames = 0
+
+        self.camera_adjust_frame = 0.3
 
         self.paused = False
 
@@ -193,7 +198,7 @@ class Player(SpriteEntity):
         while abs(rot_diff) > 6.28: rot_diff -= 6.28*(abs(rot_diff)/rot_diff)
 
         if ((abs(rot_diff) > 0.01) and not self.level.free_rotate):
-            self.level.rotation += rot_diff*0.3
+            self.level.rotation += rot_diff*self.camera_adjust_frame
 
         # Adjust sprite on perspective
         if (abs(rot_diff) <= 0.1):
@@ -319,5 +324,7 @@ class Player(SpriteEntity):
             self.velocity = Vec2()
             self.animation.timer.speed = 0
         else:
-            self.velocity -= self.velocity.unit()*min(self.velocity.length()*0.1, 0.1)
+            self.velocity -= self.velocity.unit()*min(
+                self.velocity.length()*self.v_decrease_frame, 
+                self.v_max_decrease)
     
