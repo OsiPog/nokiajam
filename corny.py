@@ -360,6 +360,7 @@ async def main():
         player.rotation = LEVELS[level_id]["start_rot"]
         player.position = LEVELS[level_id]["start_pos"]
         player.velocity = Vec2()
+        player.time = 0
         player.checkpoint = 0
         player.lap = 1
         player.paused = True
@@ -406,7 +407,6 @@ async def main():
             elif t < 1:
                 menu_ingame_counter.text = "GO!"
                 player.paused = False
-                player.start_time = time.time()*1000
             elif t == 1:
                 menu_ingame_counter.text = ""
 
@@ -420,7 +420,7 @@ async def main():
         level_id = level_select_menu.selected_button
 
         player.paused = True
-        score = int((time.time()*1000-player.start_time)/1000)
+        score = player.time
 
         new_record = (score <= SAVE[level_id]["best"] or SAVE[level_id]["best"] == -1)
 
@@ -912,12 +912,10 @@ async def main():
         
         # in a race
         if not player.paused:
+            player.time += 1000/FPS 
             menu_ingame_laps.text = str(player.lap) + "/" + str(level_engine.laps)
-            menu_ingame_playtime.text = milisecs_to_mins(time.time()*1000-player.start_time)
+            menu_ingame_playtime.text = milisecs_to_mins(player.time)
             if player.lap > level_engine.laps: finish_level()
-        else:
-            # incase of pause menu
-            player.start_time += (1/60)*1000
 
         player.update()
         level_engine.project()
