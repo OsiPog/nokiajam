@@ -119,7 +119,7 @@ class MenuButton:
         self.position = position
         self.size = size
         if bg_sheet:
-            self.animation = Animation(bg_sheet, size.tuple(), 30)
+            self.animation = Animation(bg_sheet, size.tuple(True), 30)
         else:
             self.animation = None
 
@@ -141,9 +141,9 @@ class MenuButton:
         if self.animation and not self.hidden:
             background = self.animation.get_current_frame()
         elif self.bg and not self.hidden:
-            background = pygame.transform.scale(self.bg, self.size.tuple())
+            background = pygame.transform.scale(self.bg, self.size.tuple(True))
         else:
-            background = pygame.Surface(self.size.tuple(), flags=pygame.SRCALPHA)
+            background = pygame.Surface(self.size.tuple(True), flags=pygame.SRCALPHA)
 
         if self.hidden: return background
 

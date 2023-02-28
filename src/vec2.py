@@ -5,7 +5,8 @@ class Vec2:
         self.x = x
         self.y = y
     
-    def tuple(self) -> tuple:
+    def tuple(self, rounded=False) -> tuple:
+        if rounded: return (round(self.x), round(self.y))
         return (self.x, self.y)
         
     def length(self) -> float:

@@ -91,7 +91,7 @@ class Level:
                 + (self.end_width - self.start_width)/self.end_width 
                 + 0.1
             )*self.width/self.start_width
-            scaled_sprite = pygame.transform.scale(sprite, (sprite.get_width()*scale, sprite.get_height()*scale))
+            scaled_sprite = pygame.transform.scale(sprite, (round(sprite.get_width()*scale), round(sprite.get_height()*scale)))
 
             self.output.blit(scaled_sprite, (
                 self.width - p_s.x - scaled_sprite.get_width()//2 -1, 
@@ -144,7 +144,7 @@ class SpriteEntity:
         self.sprite_size = sprite_size
 
         # splitting up spritesheet into animations with frames
-        self.animation = Animation(spritesheet, sprite_size.tuple(), anim_speed)
+        self.animation = Animation(spritesheet, sprite_size.tuple(True), anim_speed)
         
         
         self.level = level

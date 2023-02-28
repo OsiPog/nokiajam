@@ -47,7 +47,7 @@ def handler_quiet_meadows(lap, player):
         # collision of cow
         pygame.draw.circle( player.level.collision_map, 
                             player.level.collision["blocked"],
-                            p.tuple(),
+                            p.tuple(True),
                             25)
 
 def handler_tutorial(checkpoint, player):
