@@ -3,7 +3,7 @@ from src.timer import Timer
 class Transition:
     def __init__(self, handler, frames):
         self.handler = handler
-        self.frames = frames
+        self.frames = round(frames)
         self.since = 0
 
         self.all_params = True

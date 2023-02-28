@@ -21,6 +21,8 @@ SCALE = 10
 BOTTOM_SCREEN_OFFSET = (0,(NOKIA_RES[1]-BOTTOM_SCREEN_RES[1]))
 SCREEN_RES = (NOKIA_RES[0]*SCALE, NOKIA_RES[1]*SCALE)
 
+FPS = 60
+
 PALETTE = ((67, 82, 61), (199, 240, 216))
 
 # Menu constants
@@ -73,7 +75,7 @@ def handler_tutorial(checkpoint, player):
         menu_ingame_tut1.text = "to gain much speed"
     
 
-    Transition(close, 180)
+    Transition(close, 3*FPS)
 
 def handler_mount(lap, player):
     if lap == 2:
@@ -364,7 +366,7 @@ async def main():
 
         # Startup animation
         startup_scale = 10
-        startup_duration = 300
+        startup_duration = 5*FPS
         key_pressed = {"state": True} #ugly!
         def startup(t):
             keys = pygame.key.get_pressed()
@@ -383,7 +385,7 @@ async def main():
                 level_engine.scale(2*(1-t)*startup_scale + 1)
             
             if t == 1:
-                Transition(counter, 300)
+                Transition(counter, 5*FPS)
         def counter(t):
             if t < 0.2:
                 keys = pygame.key.get_pressed()
@@ -480,7 +482,7 @@ async def main():
                 menu_finished.disable_input = False
 
 
-        Transition(menu_finish_pop_in, 180)
+        Transition(menu_finish_pop_in, 3*FPS)
 
 
     # initialize pygame
@@ -782,7 +784,7 @@ async def main():
             menu_finished_record.text = "New Record!"
         else:
             menu_finished_record.text = ""
-    Timer(new_record_blink, 60)
+    Timer(new_record_blink, 1*FPS)
 
     menu_finished_curr_rec = MenuButton(
                         menu=menu_finished, 
@@ -865,7 +867,7 @@ async def main():
         menu_dev_logo.background = logo
 
         if (t == 1): 
-            Transition(show_keys_after_dev, 100)
+            Transition(show_keys_after_dev, 1.6*FPS)
 
     def show_keys_after_dev(t):
         Menu.hide_all_and_show(menu_keys_menu)
@@ -880,7 +882,7 @@ async def main():
             Menu.hide_all_and_show(start_menu)
 
     dev_logo = pygame.image.load("src/img/dev_logo.png")
-    Transition(dev_logo_anim, 120)
+    Transition(dev_logo_anim, 2*FPS)
 
 
     # init
@@ -902,7 +904,7 @@ async def main():
                 quit_game()
         pygame.event.pump()
         nokia.fill(PALETTE[1])
-        clock.tick(60)
+        clock.tick(FPS)
 
         # Update timer instances
         for timer in Timer.instances:
